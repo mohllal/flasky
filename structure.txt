@@ -1,0 +1,28 @@
+|-flasky
+|  |-app/
+|  |  |-templates/
+|  |  |-static/
+|  |  |-auth/
+|  |  |  |-__init__.py
+|  |  |  |-forms.py
+|  |  |  |-views.py
+|  |  |-profile/
+|  |  |  |-__init__.py
+|  |  |  |-forms.py
+|  |  |  |-views.py
+|  |  |-main/
+|  |  |  |-__init__.py
+|  |  |  |-errors.py
+|  |  |  |-views.py
+|  |  |-__init__.py
+|  |  |-email.py
+|  |  |-models.py
+|  |-migrations/
+|  |-tests/
+|  |  |-__init__.py
+|  |  |-test_*.py
+|  |-venv/
+|  |-.gitignore
+|  |-config.py
+|  |-run.py
+|  |-structure.txt

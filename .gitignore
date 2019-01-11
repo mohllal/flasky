@@ -1,0 +1,11 @@
+# Packages
+__pycache__
+
+# Pycharm folder
+.idea
+
+# SQLite databases
+*.sqlite
+
+# Virtual environment
+venv
