@@ -18,3 +18,11 @@ class Utils:
 
             db.session.add(u)
         db.session.commit()
+
+    @staticmethod
+    def create_dummy_user(username, email, password, role_name):
+        role = Role.query.filter_by(name=role_name).first()
+        user = User(username=username, email=email, password=password, role=role, confirmed=True)
+
+        db.session.add(user)
+        db.session.commit()
