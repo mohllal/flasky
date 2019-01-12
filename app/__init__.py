@@ -28,7 +28,7 @@ def create_app(config_name):
     moment.init_app(app)
     login_manager.init_app(app)
 
-    # attaching routes and custom error pages here
+    # attaching routes and custom errors pages here
     # this will replaced with registering blueprint
     from .main import main as main_blueprint
     from .auth import auth as auth_blueprint
