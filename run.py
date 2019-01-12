@@ -1,6 +1,6 @@
 import os
 from app.models import User, Role
-from app.Utils import Utils
+from app.utils import Utils
 from app import create_app, db
 
 
