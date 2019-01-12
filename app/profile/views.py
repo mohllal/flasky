@@ -3,14 +3,15 @@ from flask_login import login_required, current_user
 from . import profile
 from .forms import EditProfileForm, EditProfileAdminForm
 from .. import db
-from ..models import User, Role
+from ..models import User, Role, Post
 from ..decorators import admin_required
 
 
 @profile.route('/<username>')
 def show_profile(username):
     user = User.query.filter_by(username=username).first_or_404()
-    return render_template('profile/show_profile.html', user=user)
+    posts = user.posts.order_by(Post.timestamp.desc()).all()
+    return render_template('profile/show_profile.html', user=user, posts=posts)
 
 
 @profile.route('/edit-profile', methods=['GET', 'POST'])

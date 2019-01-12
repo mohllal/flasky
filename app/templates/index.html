@@ -10,5 +10,10 @@
     {% else %}
     <h1>Hello, Stranger!</h1>
     {% endif %}
+    <hr>
+    <div>
+        <h2>Other posts!</h2>
+        {% include 'post/list_posts.html' %}
+    </div>
 </div>
 {% endblock %}

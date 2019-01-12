@@ -2,12 +2,13 @@ from flask import render_template
 from flask_login import login_required
 from . import main
 from ..decorators import admin_required, permission_required
-from ..models import Permission
+from ..models import Post, Permission
 
 
 @main.route('/', methods=['GET', 'POST'])
 def index():
-    return render_template('index.html')
+    posts = Post.query.order_by(Post.timestamp.desc()).all()
+    return render_template('index.html', posts=posts)
 
 
 @main.route('/secret')
