@@ -23,3 +23,9 @@ def show_posts():
     posts = pagination.items
     return render_template('post/show_posts.html', form=form, posts=posts,
                            pagination=pagination)
+
+
+@post.route('/<int:id>')
+def show_post(id):
+    post = Post.query.get_or_404(id)
+    return render_template('post/single_post.html', posts=[post])
