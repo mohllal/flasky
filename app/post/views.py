@@ -1,4 +1,5 @@
-from flask import render_template, redirect, url_for
+from flask import render_template, redirect, url_for, request, \
+    current_app
 from flask_login import current_user
 from . import post
 from .forms import PostForm
@@ -15,5 +16,10 @@ def show_posts():
         db.session.commit()
         return redirect(url_for('.show_posts'))
 
-    posts = Post.query.order_by(Post.timestamp.desc()).all()
-    return render_template('post/show_posts.html', form=form, posts=posts)
+    page = request.args.get('page', 1, type=int)
+    pagination = Post.query.order_by(Post.timestamp.desc()).paginate(
+        page, per_page=current_app.config['FLASKY_POSTS_PER_PAGE'],
+        error_out=False)
+    posts = pagination.items
+    return render_template('post/show_posts.html', form=form, posts=posts,
+                           pagination=pagination)

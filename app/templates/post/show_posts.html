@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
+{% import "_macros.html" as macros %}
+
 {% block title %}Flasky - {{ current_user.username }}{% endblock %}
 
 {% block page_content %}
@@ -9,4 +11,7 @@
     {% endif %}
 </div>
 {% include 'post/list_posts.html' %}
+<div class="pagination">
+    {{ macros.pagination_widget(pagination, '.show_posts') }}
+</div>
 {% endblock %}
