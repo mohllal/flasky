@@ -153,6 +153,11 @@ class User(db.Model, UserMixin):
         return self.followers.filter_by(
             follower_id=user.id).first() is not None
 
+    @property
+    def followed_posts(self):
+        return Post.query.join(Follow, Post.author_id == Follow.followed_id) \
+            .filter(Follow.follower_id == self.id)
+
     def __repr__(self):
         return '<User %r>' % self.username
 

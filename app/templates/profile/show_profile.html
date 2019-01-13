@@ -51,9 +51,22 @@
     {% endif %}
 
     <h3>Posts by {{ user.username }}</h3>
-    {% include 'post/list_posts.html' %}
-    <div class="pagination">
-    {{ macros.pagination_widget(pagination, '.show_profile', username=user.username) }}
-</div>
+    <div class="post-tabs">
+        <ul class="nav nav-tabs">
+            <li {% if not show_followed %} class="active"{% endif %}><a href="{{ url_for('profile.show_all') }}">All</a></li>
+            {% if current_user.is_authenticated %}
+            <li {% if show_followed %} class="active"{% endif %}><a href="{{ url_for('profile.show_followed') }}">Followers</a></li>
+            {% endif %}
+        </ul>
+        {% include 'post/list_posts.html' %}
+    </div>
+
+    <div>
+        {% if pagination %}
+        <div class="pagination">
+            {{ macros.pagination_widget(pagination, 'profile.show_profile', username=user.username) }}
+        </div>
+        {% endif %}
+    </div>
 </div>
 {% endblock %}

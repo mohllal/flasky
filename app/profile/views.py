@@ -1,5 +1,5 @@
 from flask import render_template, flash, redirect, url_for, request, \
-    current_app
+    current_app, make_response
 from flask_login import login_required, current_user
 from . import profile
 from .forms import EditProfileForm, EditProfileAdminForm
@@ -12,12 +12,20 @@ from ..decorators import admin_required, permission_required
 def show_profile(username):
     user = User.query.filter_by(username=username).first_or_404()
     page = request.args.get('page', 1, type=int)
-    pagination = user.posts.order_by(Post.timestamp.desc()).paginate(
+    show_followed = False
+
+    if current_user.is_authenticated:
+        show_followed = bool(request.cookies.get('show_followed', ''))
+    if show_followed:
+        query = current_user.followed_posts
+    else:
+        query = Post.query
+    pagination = query.order_by(Post.timestamp.desc()).paginate(
         page, per_page=current_app.config['FLASKY_POSTS_PER_PAGE'],
         error_out=False)
     posts = pagination.items
     return render_template('profile/show_profile.html', user=user, posts=posts,
-                           pagination=pagination)
+                           pagination=pagination, show_followed=show_followed)
 
 
 @profile.route('/edit-profile', methods=['GET', 'POST'])
@@ -134,3 +142,19 @@ def followed_by(username):
     return render_template('profile/followed.html', user=user,
                            endpoint='profile.followed_by', pagination=pagination,
                            followed=followed)
+
+
+@profile.route('/all')
+@login_required
+def show_all():
+    resp = make_response(redirect(url_for('profile.show_profile', username=current_user.username)))
+    resp.set_cookie('show_followed', '', max_age=30*24*60*60)  # 30 days
+    return resp
+
+
+@profile.route('/followed')
+@login_required
+def show_followed():
+    resp = make_response(redirect(url_for('profile.show_profile', username=current_user.username)))
+    resp.set_cookie('show_followed', '1', max_age=30*24*60*60)  # 30 days
+    return resp
