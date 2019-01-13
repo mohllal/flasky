@@ -37,7 +37,7 @@ def posts(count=100):
     db.session.commit()
 
 
-def follow(count=100):
+def follows(count=100):
     user_count = User.query.count()
     for i in range(count):
         follower = User.query.offset(randint(0, user_count - 1)).first()
