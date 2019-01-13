@@ -54,6 +54,7 @@ class User(db.Model, UserMixin):
                 self.role = Role.query.filter_by(name='Administrator').first()
             if self.role is None:
                 self.role = Role.query.filter_by(default=True).first()
+        self.follow(self)
 
     @property
     def password(self):
@@ -157,6 +158,14 @@ class User(db.Model, UserMixin):
     def followed_posts(self):
         return Post.query.join(Follow, Post.author_id == Follow.followed_id) \
             .filter(Follow.follower_id == self.id)
+
+    @staticmethod
+    def add_self_follows():
+        for user in User.query.all():
+            if not user.is_following(user):
+                user.follow(user)
+                db.session.add(user)
+                db.session.commit()
 
     def __repr__(self):
         return '<User %r>' % self.username
