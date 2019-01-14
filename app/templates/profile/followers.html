@@ -14,7 +14,7 @@
     <tr>
         <td>
             <a href="{{ url_for('profile.show_profile', username = follow.user.username) }}">
-                <img class="img-rounded profile-thumbnail" src="https://via.placeholder.com/20">
+                <img class="img-rounded" src="{{ follow.user.gravatar(size=32) }}">
                 {{ follow.user.username }}
             </a>
         </td>

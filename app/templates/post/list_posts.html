@@ -3,7 +3,7 @@
     <li class="post">
         <div class="profile-thumbnail">
             <a href="{{ url_for('profile.show_profile', username=post.author.username) }}">
-                <img class="img-rounded profile-thumbnail" src="https://via.placeholder.com/20">
+                <img class="img-rounded profile-thumbnail" src="{{ post.author.gravatar(size=40) }}">
             </a>
         </div>
         <div class="post-content">
