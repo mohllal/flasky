@@ -31,6 +31,9 @@
                 <li>
                      <a href="{{ url_for('post.show_posts') }}">Posts</a>
                 </li>
+                {% if current_user.can(Permission.MODERATE) %}
+                <li><a href="{{ url_for('main.for_moderators_only') }}">Moderate Comments</a></li>
+                {% endif %}
                 {% endif %}
             </ul>
             <ul class="nav navbar-nav navbar-right">
