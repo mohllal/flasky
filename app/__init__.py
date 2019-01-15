@@ -37,10 +37,12 @@ def create_app(config_name):
     from .auth import auth as auth_blueprint
     from .profile import profile as profile_blueprint
     from .post import post as post_blueprint
-    
+    from .api_v1 import api_v1 as api_v1_blueprint
+
     app.register_blueprint(main_blueprint)
     app.register_blueprint(auth_blueprint, url_prefix='/auth')
     app.register_blueprint(profile_blueprint, url_prefix='/profile')
     app.register_blueprint(post_blueprint, url_prefix='/post')
+    app.register_blueprint(api_v1_blueprint, url_prefix='/api/v1')
 
     return app
