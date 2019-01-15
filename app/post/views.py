@@ -1,5 +1,5 @@
 from flask import render_template, redirect, url_for, request, \
-    current_app, make_response, flash
+    current_app, make_response, flash, abort
 from flask_login import current_user, login_required
 from . import post
 from .forms import PostForm, CommentForm
@@ -56,6 +56,23 @@ def show_post(id):
     return render_template('post/single_post.html', posts=[post],
                            form=form, comments=comments, pagination=pagination)
 
+
+@post.route('/edit/<int:id>', methods=['GET', 'POST'])
+@login_required
+def edit_post(id):
+    post = Post.query.get_or_404(id)
+    if current_user != post.author and \
+            not current_user.can(Permission.ADMIN):
+        abort(403)
+    form = PostForm()
+    if form.validate_on_submit():
+        post.body = form.body.data
+        db.session.add(post)
+        db.session.commit()
+        flash('The post has been updated.')
+        return redirect(url_for('post.show_post', id=post.id))
+    form.body.data = post.body
+    return render_template('post/edit_post.html', form=form)
 
 @post.route('/all')
 @login_required
