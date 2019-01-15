@@ -6,17 +6,24 @@
 |  |  |  |-__init__.py
 |  |  |  |-forms.py
 |  |  |  |-views.py
-|  |  |-profile/
-|  |  |  |-__init__.py
-|  |  |  |-forms.py
-|  |  |  |-views.py
 |  |  |-main/
 |  |  |  |-__init__.py
 |  |  |  |-errors.py
 |  |  |  |-views.py
+|  |  |-post/
+|  |  |  |-__init__.py
+|  |  |  |-forms.py
+|  |  |  |-views.py
+|  |  |-profile/
+|  |  |  |-__init__.py
+|  |  |  |-forms.py
+|  |  |  |-views.py
 |  |  |-__init__.py
+|  |  |-decorators.py
 |  |  |-email.py
+|  |  |-fake.py
 |  |  |-models.py
+|  |  |-utils.py
 |  |-migrations/
 |  |-tests/
 |  |  |-__init__.py
