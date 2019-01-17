@@ -2,6 +2,14 @@
 |  |-app/
 |  |  |-templates/
 |  |  |-static/
+|  |  |-api_v1/
+|  |  |  |-__init__.py
+|  |  |  |-authentication.py
+|  |  |  |-comments.py
+|  |  |  |-decorators.py
+|  |  |  |-errors.py
+|  |  |  |-posts.py
+|  |  |  |-users.py
 |  |  |-auth/
 |  |  |  |-__init__.py
 |  |  |  |-forms.py
@@ -21,10 +29,12 @@
 |  |  |-__init__.py
 |  |  |-decorators.py
 |  |  |-email.py
+|  |  |-exceptions.py
 |  |  |-fake.py
 |  |  |-models.py
 |  |  |-utils.py
 |  |-migrations/
+|  |-requirements/
 |  |-tests/
 |  |  |-__init__.py
 |  |  |-test_*.py
