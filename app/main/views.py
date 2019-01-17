@@ -5,6 +5,7 @@ from . import main
 from .. import db
 from ..decorators import admin_required, permission_required
 from ..models import Post, Comment, Permission
+from flask_sqlalchemy import get_debug_queries
 
 
 @main.route('/', methods=['GET', 'POST'])
@@ -95,3 +96,14 @@ def show_followed():
 @main.app_context_processor
 def inject_permissions():
     return dict(Permission=Permission)
+
+
+@main.after_app_request
+def after_request(response):
+    for query in get_debug_queries():
+        if query.duration >= current_app.config['FLASKY_SLOW_DB_QUERY_TIME']:
+            current_app.logger.warning(
+                'Slow query: %s\nParameters: %s\nDuration: %fs\nContext: %s\n'
+                % (query.statement, query.parameters, query.duration,
+                   query.context))
+    return response

@@ -17,6 +17,8 @@ class Config:
     FLASKY_FOLLOWERS_PER_PAGE = os.environ.get('FLASKY_FOLLOWERS_PER_PAGE') or 15
     FLASKY_COMMENTS_PER_PAGE = os.environ.get('FLASKY_COMMENTS_PER_PAGE') or 30
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_RECORD_QUERIES = True
+    FLASKY_SLOW_DB_QUERY_TIME = 0.5
 
     @staticmethod
     def init_app(app):
